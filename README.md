@@ -14,7 +14,7 @@
         	<plugin>
           		<groupId>org.jacoco</groupId>
           		<artifactId>jacoco-maven-plugin</artifactId>
-          		<version>0.8.6</version>
+          		<version>0.8.8</version>
         	</plugin>
 		</plugins>
 	</build>
@@ -44,16 +44,21 @@
     </profile>
   </profiles>
 ```
+#### [註] jacoco-maven-plugin 的版本需要因應JDK版本而變更，前述設定的 0.8.8 為符合 JDK 17
+https://www.jacoco.org/jacoco/trunk/doc/changes.html
+  * 0.8.11 版本支援 jdk21。
+  * 0.8.9 版本支援 jdk19 和 jdk20。
+  * 0.8.8 支援 jdk17 和 jdk18。
 ### 如何關閉Sonarqube UnitTest
 在`SonarScan`內修改特定段落內新增`-DskipTests`即可跳過unit Test，以下為跳過unit Test範例，跳過unit Test後則不會出現覆蓋率
 ```
 echo '========== SonarQube(Maven) =========='
-cd app && mvn install -DskipTests &&
-mvn clean -DskipTests verify sonar:sonar -Dsonar.host.url=http://sonarqube-server-service.default:9000\
-    -Dsonar.projectName=${CICD_GIT_REPO_NAME} -Dsonar.projectKey=${CICD_GIT_REPO_NAME}\
-    -Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}\
+cd app && mvn install
+mvn clean -DskipTests verify sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL\
+    -Dsonar.projectName=$PROJECT_NAME -Dsonar.projectKey=$PROJECT_NAME\
+    -Dsonar.projectVersion=$GIT_BRANCH:$GIT_COMMIT_ID\
 	-Dsonar.log.level=DEBUG -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600\
-	-Dsonar.login=$SONAR_TOKEN
+	-Dsonar.login=$SONAR_LOGIN
 ```
 
 ### 程式覆蓋率教學
