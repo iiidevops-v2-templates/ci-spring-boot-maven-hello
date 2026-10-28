@@ -9,7 +9,7 @@
 			<plugin>
           		<groupId>org.sonarsource.scanner.maven</groupId>
           		<artifactId>sonar-maven-plugin</artifactId>
-          		<version>3.7.0.1746</version>
+          		<version>5.8.0.7211</version>
         	</plugin>
         	<plugin>
           		<groupId>org.jacoco</groupId>
@@ -58,7 +58,7 @@ mvn clean -DskipTests verify sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL\
     -Dsonar.projectName=$PROJECT_NAME -Dsonar.projectKey=$PROJECT_NAME\
     -Dsonar.projectVersion=$GIT_BRANCH:$GIT_COMMIT_ID\
 	-Dsonar.log.level=DEBUG -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600\
-	-Dsonar.login=$SONAR_LOGIN
+	-Dsonar.token=$SONAR_TOKEN
 ```
 
 ### 程式覆蓋率教學
